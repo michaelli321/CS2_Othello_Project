@@ -1,4 +1,5 @@
 #include "player.hpp"
+#include "board.hpp"
 
 /*
  * Constructor for the player; initialize everything here. The side your AI is
@@ -14,6 +15,11 @@ Player::Player(Side side) {
      * precalculating things, etc.) However, remember that you will only have
      * 30 seconds.
      */
+
+    board = Board();
+    
+
+
 }
 
 /*
