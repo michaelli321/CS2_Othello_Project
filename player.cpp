@@ -1,5 +1,4 @@
 #include "player.hpp"
-#include "board.hpp"
 
 /*
  * Constructor for the player; initialize everything here. The side your AI is
@@ -16,8 +15,19 @@ Player::Player(Side side) {
      * 30 seconds.
      */
 
-    board = Board();
-    
+
+    /* Mike, I need to access these variables in the doMove function. How do i fix this? might go to mojo tomorrow. 
+    Also, I was told we are going to want to allocate memory hear and avoid using new later in the code. */
+
+    Board board = Board();
+    Side mySide = side;
+    Side other = BLACK;
+
+    if (mySide == BLACK)
+    {
+        Side other = WHITE;
+    }
+
 
 
 }
@@ -41,10 +51,143 @@ Player::~Player() {
  * The move returned must be legal; if there are no valid moves for your side,
  * return nullptr.
  */
+
+/* Should this check moves, or possible moves? Checking moves would have to allocate memory for the move first. */
+
+int Player::Heuristic(Side side, int x, int y)
+{
+    Board copy = board.copy();
+    Move * Move2 = new Move(x, y);
+    copy.doMove(Move2, side);
+
+/* Simple board position score. Final - initial so it is always positive. */
+
+    int score = (copy.countBlack() - copy.countWhite()) - (board.countBlack() - board.countWhite())
+
+// Big upgrade if you get a corner spot.
+
+    if ((x == 0 || x == 7) && (y == 0 || y == 7))
+    {
+        score *= 3;
+    }
+
+// Upgrade if you get an edge that's not a corner.
+
+    else if (x == 0 || x == 7 || y == 0 || y ==7)
+    {
+        score *= 2;
+    }
+
+// Downgrade for setting opponent up for 
+
+    else if ((x == 1) && (y != 0 && y != 7))
+    {
+        for (int i = -1; i <= 1; i++)
+        {
+            Move * TheirMove = new Move(0, y + i);
+            if (copy.checkMove(TheirMove, other))
+            {
+                score *= -3;
+                delete TheirMove;
+                break;
+            }
+
+            delete TheirMove;
+        }
+    }
+
+    else if ((x == 6) && (y != 0 && y != 7))
+    {
+        for (int i = -1; i <= 1; i++)
+        {
+            Move * TheirMove = new Move(7, y + i);
+            if (copy.checkMove(TheirMove, other))
+            {
+                score *= -3;
+                delete TheirMove;
+                break;
+            }
+
+            delete TheirMove;
+        }
+    }
+
+    if ((y == 1) && (x != 0 && x != 7))
+    {
+        for (int i = -1; i <= 1; i++)
+        {
+            Move * TheirMove = new Move(x + 1, 0);
+            if (copy.checkMove(TheirMove, other))
+            {
+                score *= -3;
+                delete TheirMove;
+                break;
+            }
+
+            delete TheirMove;
+        }
+    }
+
+    if ((y == 6) && (x != 0 && x != 7))
+    {
+        for (int i = -1; i <= 1; i++)
+        {
+            Move * TheirMove = new Move(x + 1, 0);
+            if (copy.checkMove(TheirMove, other))
+            {
+                score *= -3;
+                delete TheirMove;
+                break;
+            }
+
+            delete TheirMove;
+        }
+    }
+
+    delete Move2;
+    return score;
+
+
+}
+
 Move *Player::doMove(Move *opponentsMove, int msLeft) {
     /*
      * TODO: Implement how moves your AI should play here. You should first
      * process the opponent's opponents move before calculating your own move
      */
+
+    
+
+    board.doMove(*opponentsMove, other);
+
+    Move * Move1 = nullptr;
+    Board copy = board.copy();
+
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            if (copy.get(other, i, j))
+            {
+                for (int dx = -1; dx <= 1; dx++)
+                {
+                    for (int dy = -1; dy <= 1; dy++)
+                    {
+                        if (dy == 0 && dx == 0) continue;
+                        if (copy.checkMove(mySide, i + dx, j + dy))
+                        {
+                            Move1 = new Move(i + dx, j + dy);
+                            board.doMove(Move1, mySide);
+                            return Move1;
+                        }
+                    }
+                }
+            }
+        }
+            
+    }
+
+
+
     return nullptr;
 }

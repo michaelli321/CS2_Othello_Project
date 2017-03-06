@@ -8,9 +8,11 @@ using namespace std;
 
 class Player {
 
+
 public:
     Player(Side side);
     ~Player();
+    int Heuristic(Side side, int x, int y);
 
     Move *doMove(Move *opponentsMove, int msLeft);
 
