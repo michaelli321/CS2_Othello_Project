@@ -140,6 +140,22 @@ int Player::Heuristic(Side side, int x, int y)
 
 }
 
+Move Player::minimax()
+
+vector<tuple<int, int>> Player::getPossibleMoves(Side side){
+    vector<tuple<int, int>> listMoves;
+    for (int i = 0, i < 8; i++){
+        for (int j = 0, j < 8; j++){
+            if (board.checkMove(/*move*/, side)){
+                tuple<int, int> coord = (i, j);
+                listMoves.push_back(coord);
+            }
+        }
+    }
+
+    return listMoves;
+}
+
 Move *Player::doMove(Move *opponentsMove, int msLeft) {
     /*
      * TODO: Implement how moves your AI should play here. You should first
