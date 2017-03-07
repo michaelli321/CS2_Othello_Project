@@ -8,6 +8,15 @@ using namespace std;
 
 class Player {
 
+private: 
+	
+	bool testingMinimax;
+	Board board;
+	Side myside;
+	Side other;
+
+
+
 
 public:
     Player(Side side);
@@ -16,8 +25,7 @@ public:
 
     Move *doMove(Move *opponentsMove, int msLeft);
 
-    // Flag to tell if the player is running within the test_minimax context
-    bool testingMinimax;
+   
 };
 
 #endif

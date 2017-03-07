@@ -15,19 +15,16 @@ Player::Player(Side side) {
      * 30 seconds.
      */
 
-
-    /* Mike, I need to access these variables in the doMove function. How do i fix this? might go to mojo tomorrow. 
-    Also, I was told we are going to want to allocate memory hear and avoid using new later in the code. */
-
-    Board board = Board();
-    Side mySide = side;
-    Side other = BLACK;
+    board = new Board();
+    mySide = side;
+    
 
     if (mySide == BLACK)
     {
-        Side other = WHITE;
+        other = WHITE;
     }
 
+    other = BLACK;
 
 
 }
