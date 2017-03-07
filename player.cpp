@@ -57,7 +57,7 @@ int Player::Heuristic(Side side, int x, int y)
     Move * Move2 = new Move(x, y);
     copy.doMove(Move2, side);
 
-/* Simple board position score. Final - initial so it is always positive. */
+/* Simple board position score. */
 
     int score = (copy.countBlack() - copy.countWhite()) - (board.countBlack() - board.countWhite())
 
@@ -66,13 +66,6 @@ int Player::Heuristic(Side side, int x, int y)
     if ((x == 0 || x == 7) && (y == 0 || y == 7))
     {
         score *= 3;
-    }
-
-// Upgrade if you get an edge that's not a corner.
-
-    else if (x == 0 || x == 7 || y == 0 || y ==7)
-    {
-        score *= 2;
     }
 
 // Downgrade for setting opponent up for 
