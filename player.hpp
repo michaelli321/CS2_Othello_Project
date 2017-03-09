@@ -16,12 +16,11 @@ private:
 	Side other;
 
 
-
-
 public:
     Player(Side side);
     ~Player();
-    int Heuristic(Side side, int x, int y);
+    //int Heuristic(Side side, int x, int y);
+    vector<tuple<int, int>> Player::getPossibleMoves(Side side)
 
     Move *doMove(Move *opponentsMove, int msLeft);
 
