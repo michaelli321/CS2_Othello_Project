@@ -167,7 +167,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
 
     vector<tuple<int, int>> listMoves = this -> getPossibleMoves(this->myside);
 
-    if (listMoves.size() == 0){
+    if ((listMoves.size() == 0) || (msLeft == 0)){
         return nullptr;
     }
 
@@ -178,6 +178,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
 
     Move *myMove = new Move(x, y);
 
+    board.doMove(myMove, myside);
 
     return myMove;
 
