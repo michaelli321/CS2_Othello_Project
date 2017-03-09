@@ -2,8 +2,6 @@
 
 
 
-using namespace std;
-
 /*
  * Constructor for the player; initialize everything here. The side your AI is
  * on (BLACK or WHITE) is passed in as "side". The constructor must finish
@@ -13,15 +11,12 @@ Player::Player(Side side) {
     // Will be set to true in test_minimax.cpp.
     testingMinimax = false;
 
-    Board board;
+    board = new Board();
     myside = side;
-    
     if (myside == BLACK)
     {
         other = WHITE;
-    }
-
-    if (myside == WHITE){
+    } else if (myside == WHITE){
     	other = BLACK;
     }
 
@@ -142,16 +137,15 @@ Player::~Player() {
 // }
 
 
-// Move Player::minimax()
 
-vector<tuple<int, int>> Player::getPossibleMoves(Side side){
-    vector<tuple<int, int>> listMoves;
+
+vector<Move*> Player::getPossibleMoves(Side side){
+    vector<Move*> listMoves;
     for (int i = 0; i < 8; i++){
         for (int j = 0; j < 8; j++){
-            Move newMove(i, j);
-            if (board.checkMove(&newMove, side)){
-                tuple<int, int> coord(i, j);
-                listMoves.push_back(coord);
+            Move *newMove = new Move(i, j);
+            if (board -> checkMove(newMove, side)){
+                listMoves.push_back(newMove);
             }
         }
     }
@@ -159,30 +153,58 @@ vector<tuple<int, int>> Player::getPossibleMoves(Side side){
     return listMoves;
 }
 
+int Player::calcScore(Move * possibleMove){
+
+	Board * copyBoard = board -> copy();
+
+	int score;
+
+	copyBoard -> doMove(possibleMove, myside);
+	if (myside == BLACK){
+		score = (copyBoard -> countBlack()) - (copyBoard -> countWhite());
+	} else {
+		score = (copyBoard -> countWhite()) - (copyBoard -> countBlack());
+	}
+
+	if ((possibleMove -> getX() == 0) && (possibleMove -> getY() == 0)){
+		score *= 3;
+	} else if ((possibleMove-> getX() == 7) && (possibleMove -> getY() == 0)){
+		score *= 3;
+	} else if ((possibleMove -> getX() == 0) && (possibleMove -> getY() == 7)){
+		score *= 3;
+	} else if ((possibleMove -> getX() == 7) && (possibleMove -> getY() == 0)){
+		score *= 3;
+	}
+
+	return score;
+	
+}
+
 Move *Player::doMove(Move *opponentsMove, int msLeft) {
-    /*
-     * TODO: Implement how moves your AI should play here. You should first
-     * process the opponent's opponents move before calculating your own move
-     */
+    
 
-    board.doMove(opponentsMove, other);
+    board -> doMove(opponentsMove, other);
 
-    vector<tuple<int, int>> listMoves = this -> getPossibleMoves(this->myside);
+    vector<Move*> listMoves = this -> getPossibleMoves(this->myside);
 
     if ((listMoves.size() == 0) || (msLeft == 0)){
         return nullptr;
     }
 
-    int index = rand() % listMoves.size();
-    tuple<int, int> move = listMoves[index];
-    int x = get<0>(move);
-    int y = get<1>(move);
+    Move *highmove = listMoves[0];
+    int highScore = this -> calcScore(highmove);
 
-    Move *myMove = new Move(x, y);
+    for (unsigned int i = 1; i < listMoves.size(); i++){
+    	int tempScore = this -> calcScore(listMoves[i]);
+    	if (tempScore > highScore){
+    		highScore = tempScore;
+    		highmove = listMoves[i];
+    	}
+    }
 
-    board.doMove(myMove, myside);
+    board -> doMove(highmove, myside);
 
-    return myMove;
+    return highmove;
 
 }
 

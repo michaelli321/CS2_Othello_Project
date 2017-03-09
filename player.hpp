@@ -14,7 +14,7 @@ class Player {
 private: 
 	
 	bool testingMinimax;
-	Board board;
+	Board * board;
 	Side myside;
 	Side other;
 
@@ -23,7 +23,8 @@ public:
     Player(Side side);
     ~Player();
     //int Heuristic(Side side, int x, int y);
-    vector<tuple<int, int>> getPossibleMoves(Side side);
+    vector<Move*> getPossibleMoves(Side side);
+    int calcScore(Move * possibleMove);
 
     Move *doMove(Move *opponentsMove, int msLeft);
 
