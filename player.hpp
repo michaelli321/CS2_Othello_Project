@@ -4,6 +4,9 @@
 #include <iostream>
 #include "common.hpp"
 #include "board.hpp"
+#include <vector>
+#include <tuple>
+
 using namespace std;
 
 class Player {
@@ -20,7 +23,7 @@ public:
     Player(Side side);
     ~Player();
     //int Heuristic(Side side, int x, int y);
-    vector<tuple<int, int>> Player::getPossibleMoves(Side side)
+    vector<tuple<int, int>> getPossibleMoves(Side side);
 
     Move *doMove(Move *opponentsMove, int msLeft);
 

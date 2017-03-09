@@ -13,10 +13,10 @@ Player::Player(Side side) {
     // Will be set to true in test_minimax.cpp.
     testingMinimax = false;
 
-    board = new Board();
-    mySide = side;
+    Board board;
+    myside = side;
     
-    if (mySide == BLACK)
+    if (myside == BLACK)
     {
         other = WHITE;
     }
@@ -144,13 +144,12 @@ Player::~Player() {
 
 vector<tuple<int, int>> Player::getPossibleMoves(Side side){
     vector<tuple<int, int>> listMoves;
-    for (int i = 0, i < 8; i++){
-        for (int j = 0, j < 8; j++){
-            Move newMove = new Move(i, j);
-            if (board.checkMove(newMove, side)){
-                tuple<int, int> coord = (i, j);
+    for (int i = 0; i < 8; i++){
+        for (int j = 0; j < 8; j++){
+            Move newMove(i, j);
+            if (board.checkMove(&newMove, side)){
+                tuple<int, int> coord(i, j);
                 listMoves.push_back(coord);
-            delete newMove;
             }
         }
     }
@@ -164,26 +163,31 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      * process the opponent's opponents move before calculating your own move
      */
 
-    board.doMove(*opponentsMove, other);
+    board.doMove(opponentsMove, other);
 
     vector<tuple<int, int>> listMoves = this -> getPossibleMoves(this->myside);
 
-    int index = rand() % listMove.size();
-    tuple<int, int> move = listMove[index];
+    if (listMoves.size() == 0){
+        return nullptr;
+    }
+
+    int index = rand() % listMoves.size();
+    tuple<int, int> move = listMoves[index];
     int x = get<0>(move);
     int y = get<1>(move);
 
-    return move(x, y);
+    Move *myMove = new Move(x, y);
 
 
+    return myMove;
+
+}
 
     
     /*
     board.doMove(*opponentsMove, other);
-
     Move * Move1 = nullptr;
     Board copy = board.copy();
-
     for (int i = 0; i < 8; i++)
     {
         for (int j = 0; j < 8; j++)
@@ -207,9 +211,5 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
         }
             
     }
-
-
-
     return nullptr;
     */
-}
