@@ -21,7 +21,9 @@ Player::Player(Side side) {
         other = WHITE;
     }
 
-    other = BLACK;
+    if (myside == WHITE){
+    	other = BLACK;
+    }
 
 
 }
