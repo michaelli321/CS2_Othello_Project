@@ -174,6 +174,64 @@ int Player::calcScore(Move * possibleMove){
 		score *= 3;
 	} else if ((possibleMove -> getX() == 7) && (possibleMove -> getY() == 0)){
 		score *= 3;
+	} else if ((possibleMove -> getX() == 1) && (possibleMove-> getY() == 0)){
+		score *= -1;
+	} else if ((possibleMove -> getX() == 6) && (possibleMove -> getY() == 0)){
+		score *= -1;
+	} else if ((possibleMove -> getX() == 0) && (possibleMove -> getY() == 1)){
+		score *= -1;
+	} else if ((possibleMove -> getX() == 7) && (possibleMove -> getY() == 1)){
+		score *= -1;
+	} else if ((possibleMove -> getX() == 0) && (possibleMove -> getY() == 6)){
+		score *= -1;
+	} else if ((possibleMove -> getX() == 7) && (possibleMove -> getY() == 6)){
+		score *= -1;
+	} else if ((possibleMove -> getX() == 1) && (possibleMove -> getY() == 7)){
+		score *= -1;
+	} else if ((possibleMove -> getX() == 6) && (possibleMove -> getY () == 7)){
+		score *= -1;
+	} else if ((possibleMove -> getX() == 1) && (possibleMove -> getY() == 1)){
+		score *= -3;
+	} else if ((possibleMove -> getX() == 6) && (possibleMove -> getY() == 1)){
+		score *= -3;
+	} else if ((possibleMove -> getX() == 1) && (possibleMove -> getY() == 6)){
+		score *= -3;
+	} else if ((possibleMove -> getX() == 6) && (possibleMove -> getY() == 6)){
+		score *= -3;
+	} else if ((possibleMove -> getX() == 0) && (possibleMove -> getY() == 2)){
+		score *= 1.25;
+	} else if ((possibleMove -> getX() == 0) && (possibleMove -> getY() == 3)){
+		score *= 1.25;
+	} else if ((possibleMove -> getX() == 0) && (possibleMove -> getY() == 4)){
+		score *= 1.25;
+	} else if ((possibleMove -> getX() == 0) && (possibleMove -> getY() == 5)){
+		score *= 1.25;
+	} else if ((possibleMove -> getX() == 2) && (possibleMove -> getY() == 0)){
+		score *= 1.25;
+	} else if ((possibleMove -> getX() == 3) && (possibleMove -> getY() == 0)){
+		score *= 1.25;
+	} else if ((possibleMove -> getX() == 4) && (possibleMove -> getY() == 0)){
+		score *= 1.25;
+	} else if ((possibleMove -> getX() == 5) && (possibleMove -> getY() == 0)){
+		score *= 1.25;
+	} else if ((possibleMove -> getX() == 7) && (possibleMove -> getY() == 2)){
+		score *= 1.25;
+	} else if ((possibleMove -> getX() == 7) && (possibleMove -> getY() == 3)){
+		score *= 1.25;
+	} else if ((possibleMove -> getX() == 7) && (possibleMove -> getY() == 4)){
+		score *= 1.25;
+	} else if ((possibleMove -> getX() == 7) && (possibleMove -> getY() == 5)){
+		score *= 1.25;
+	} else if ((possibleMove -> getX() == 7) && (possibleMove -> getY() == 2)){
+		score *= 1.25;
+	} else if ((possibleMove -> getX() == 2) && (possibleMove -> getY() == 7)){
+		score *= 1.25;
+	} else if ((possibleMove -> getX() == 3) && (possibleMove -> getY() == 7)){
+		score *= 1.25;
+	} else if ((possibleMove -> getX() == 4) && (possibleMove -> getY() == 7)){
+		score *= 1.25;
+	} else if ((possibleMove -> getX() == 5) && (possibleMove -> getY() == 7)){
+		score *= 1.25;
 	}
 
 	return score;
