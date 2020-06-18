@@ -1,4 +1,4 @@
-Caltech CS2 Assignment 9: Othello
+Caltech CS2 Assignment 9: Othello Mar 2017
 
 We both worked together to understand the board and outline a strategy for our bot. Mike wrote a random player and developed a heuristic to beat SimplePlayer. Alec modified the heuristic and other helper functions to get them to work with a minimax implementation in an attempt to beat ConstantTimePlayer.
 
